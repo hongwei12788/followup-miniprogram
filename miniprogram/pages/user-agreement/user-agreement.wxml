@@ -1,0 +1,24 @@
+<view class="container">
+  <view class="page-hero">
+    <view class="eyebrow">服务条款</view>
+    <view class="title">用户服务协议</view>
+    <view class="subtitle">请在注册或登录前阅读本协议。</view>
+  </view>
+
+  <view class="form-card policy-card">
+    <view class="card-title">一、服务说明</view>
+    <view class="policy-text">本小程序用于术后随访管理，向患者提供随访任务、拔管提醒、医生提醒、检查结果查看和恢复反馈能力，向医生、护士和管理员提供患者随访管理能力。</view>
+
+    <view class="card-title policy-heading">二、账号使用</view>
+    <view class="policy-text">用户应使用本人或医院授权的手机号注册、登录和使用本服务。医生、护士和管理员需要使用医院发放的身份码完成身份校验。</view>
+
+    <view class="card-title policy-heading">三、医疗提醒</view>
+    <view class="policy-text">小程序内的随访提醒、短信提醒和检查结果展示用于辅助术后管理。患者如出现明显不适，应及时联系医院或前往线下医疗机构就诊。</view>
+
+    <view class="card-title policy-heading">四、用户责任</view>
+    <view class="policy-text">用户应保证提交信息真实、准确，不得冒用他人身份，不得上传违法、侵权或与术后随访无关的内容。</view>
+
+    <view class="card-title policy-heading">五、协议更新</view>
+    <view class="policy-text">如服务范围、功能或规则发生变化，我们会在小程序内更新本协议。继续使用本服务视为已阅读并接受更新后的内容。</view>
+  </view>
+</view>

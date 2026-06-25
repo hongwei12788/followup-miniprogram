@@ -1,0 +1,54 @@
+<view class="container">
+  <view class="page-hero">
+    <view class="eyebrow">新增记录</view>
+    <view class="title">患者与手术</view>
+    <view class="subtitle">录入患者基础信息后，系统会生成术后随访任务。</view>
+  </view>
+
+  <view class="form-card">
+    <view class="field">
+      <view class="field-label">患者姓名</view>
+      <input class="form-input" model:value="{{name}}" placeholder="请输入姓名" />
+    </view>
+    <view class="field">
+      <view class="field-label">手机号</view>
+      <input class="form-input" model:value="{{phone}}" type="number" placeholder="请输入手机号" />
+    </view>
+    <view class="field">
+      <view class="field-label">医院名称</view>
+      <input class="form-input" value="{{organizationName}}" bindinput="onOrganizationInput" placeholder="请输入或选择医院名称" />
+      <picker wx:if="{{organizationOptions.length}}" mode="selector" range="{{organizationOptions}}" range-key="name" value="{{organizationIndex}}" bindchange="onOrganizationChange">
+        <view class="picker-input">从已有医院中选择</view>
+      </picker>
+    </view>
+    <view class="field">
+      <view class="field-label">随访科室</view>
+      <input class="form-input" value="{{departmentName}}" bindinput="onDepartmentInput" placeholder="请输入或选择随访科室" />
+      <picker wx:if="{{departmentOptions.length}}" mode="selector" range="{{departmentOptions}}" range-key="name" value="{{departmentIndex}}" bindchange="onDepartmentChange">
+        <view class="picker-input">从当前医院科室中选择</view>
+      </picker>
+    </view>
+    <view class="field">
+      <view class="field-label">手术名称</view>
+      <input class="form-input" model:value="{{surgeryName}}" placeholder="请输入手术名称" />
+    </view>
+    <view class="field">
+      <view class="field-label">手术日期</view>
+      <picker mode="date" value="{{surgeryTime}}" bindchange="onSurgeryDateChange">
+        <view class="picker-input {{surgeryTime ? '' : 'placeholder'}}">{{surgeryTime || '请选择手术日期'}}</view>
+      </picker>
+    </view>
+    <view class="field">
+      <view class="field-label">首次随访时间</view>
+      <picker mode="date" value="{{firstFollowupTime}}" bindchange="onFirstFollowupDateChange">
+        <view class="picker-input {{firstFollowupTime ? '' : 'placeholder'}}">{{firstFollowupTime || '请选择首次随访时间，可不填'}}</view>
+      </picker>
+      <button wx:if="{{firstFollowupTime}}" class="tiny-link-btn" bindtap="clearFirstFollowupDate">清除首次随访时间</button>
+    </view>
+    <view class="field">
+      <view class="field-label">随访地点</view>
+      <input class="form-input" model:value="{{followupLocation}}" placeholder="例如 门诊三楼泌尿外科随访室" />
+    </view>
+    <button type="primary" bindtap="submit" loading="{{loading}}" class="primary-btn">提交</button>
+  </view>
+</view>

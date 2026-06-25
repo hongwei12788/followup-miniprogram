@@ -1,0 +1,14 @@
+.policy-card {
+  padding-bottom: 36rpx;
+}
+
+.policy-heading {
+  margin-top: 34rpx;
+}
+
+.policy-text {
+  margin-top: 14rpx;
+  color: #365555;
+  font-size: 27rpx;
+  line-height: 1.8;
+}

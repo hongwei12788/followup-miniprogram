@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/patient-home/patient-home",
+    "pages/patient-surgery/patient-surgery",
+    "pages/patient-followup/patient-followup",
+    "pages/patient-mine/patient-mine",
+    "pages/user-agreement/user-agreement",
+    "pages/privacy-policy/privacy-policy",
+    "pages/staff-workbench/staff-workbench",
+    "pages/staff-patients/staff-patients",
+    "pages/staff-patient-detail/staff-patient-detail",
+    "pages/staff-surgery-add/staff-surgery-add",
+    "pages/staff-followup-tasks/staff-followup-tasks"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "术后随访",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/patient-home/patient-home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/patient-mine/patient-mine",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,72 @@
+<view class="container">
+  <view class="page-hero">
+    <view class="eyebrow">患者端</view>
+    <view class="title">我的随访提醒</view>
+    <view class="subtitle">查看术后随访、拔管安排和医护发送的提醒。</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty-state">正在加载随访信息...</view>
+
+  <view wx:if="{{subscribeEnabled}}" class="form-card subscribe-card">
+    <view class="meta-row subscribe-head">
+      <view class="card-title">微信提醒</view>
+      <view class="{{subscribeStatus.badgeClass}}">{{subscribeStatus.badgeText}}</view>
+    </view>
+    <view class="item-title subscribe-title">{{subscribeStatus.statusText}}</view>
+    <view class="label subscribe-detail">{{subscribeStatus.detailText}}</view>
+    <button class="primary-btn" loading="{{subscribeLoading}}" bindtap="requestWechatSubscribe">{{subscribeStatus.actionText}}</button>
+  </view>
+
+  <view wx:if="{{showPatientHint}}" class="form-card">
+    <view class="card-title">患者资料</view>
+    <view class="notice-box">{{patientHintText}}</view>
+    <button class="tiny-link-btn" style="margin-top: 18rpx;" bindtap="rebindCurrentPhone">重新匹配资料</button>
+  </view>
+
+  <view class="stat-grid">
+    <view class="stat-card">
+      <view class="stat-value">{{tasks.length}}</view>
+      <view class="stat-label">随访任务</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-value">{{patient ? 1 : 0}}</view>
+      <view class="stat-label">已绑定患者</view>
+    </view>
+  </view>
+
+  <view class="section-title">医护提醒</view>
+  <view wx:for="{{reminders}}" wx:key="id" class="list-card">
+    <view class="item-title">{{item.message}}</view>
+    <view class="meta-stack">
+      <view class="label">提醒时间：{{item.createdAtText}}</view>
+      <view class="label">提醒方式：{{item.channelText}}</view>
+    </view>
+  </view>
+  <view wx:if="{{!loading && reminders.length===0}}" class="empty-state">暂无医护提醒</view>
+
+  <view class="section-title">待处理事项</view>
+  <view wx:for="{{tasks}}" wx:key="id" class="list-card">
+    <view class="meta-row">
+      <view class="item-title">{{item.title}}</view>
+      <view class="status-pill {{item.status}}">
+        <text wx:if="{{item.status==='pending'}}">待处理</text>
+        <text wx:elif="{{item.status==='done'}}">已完成</text>
+        <text wx:elif="{{item.status==='overdue'}}">已逾期</text>
+        <text wx:else>{{item.status}}</text>
+      </view>
+    </view>
+    <view class="meta-stack">
+      <view class="label">提醒日期：{{item.dueDateText}}</view>
+      <view class="label" wx:if="{{item.instruction}}">{{item.instruction}}</view>
+      <view class="label" wx:if="{{item.location}}">地点：{{item.location}}</view>
+      <view class="label muted">提醒方式：{{item.channelText}}</view>
+      <view class="label" wx:if="{{item.status==='overdue'}}">该任务已逾期，请尽快处理</view>
+    </view>
+  </view>
+  <view wx:if="{{!loading && tasks.length===0}}" class="empty-state">暂无待处理提醒</view>
+
+  <view class="action-row">
+    <button class="ghost-btn" bindtap="goSurgery">我的手术</button>
+    <button class="primary-btn" bindtap="goFollowup">填写随访</button>
+  </view>
+</view>

@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="page-hero">
+    <view class="eyebrow">任务中心</view>
+    <view class="title">随访任务</view>
+    <view class="subtitle">按状态筛选任务，提醒患者，记录完成情况。</view>
+  </view>
+
+  <view class="filter-row">
+    <button class="filter-btn" size="mini" bindtap="switchStatus" data-status="">全部</button>
+    <button class="filter-btn" size="mini" bindtap="switchStatus" data-status="pending">待处理</button>
+    <button class="filter-btn" size="mini" bindtap="switchStatus" data-status="done">已完成</button>
+    <button class="filter-btn" size="mini" bindtap="switchStatus" data-status="overdue">已逾期</button>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty-state">正在加载任务...</view>
+
+  <view wx:for="{{tasks}}" wx:key="id" class="list-card">
+    <view class="meta-row">
+      <view class="item-title">{{item.title}}</view>
+      <view class="status-pill {{item.status}}">
+        <text wx:if="{{item.status==='pending'}}">待处理</text>
+        <text wx:elif="{{item.status==='done'}}">已完成</text>
+        <text wx:elif="{{item.status==='overdue'}}">已逾期</text>
+        <text wx:else>{{item.status}}</text>
+      </view>
+    </view>
+    <view class="meta-stack">
+      <view class="label">患者：{{item.patientName}}</view>
+      <view class="label">提醒日期：{{item.dueDateText}}</view>
+      <view class="label" wx:if="{{item.instruction}}">{{item.instruction}}</view>
+      <view class="label" wx:if="{{item.location}}">地点：{{item.location}}</view>
+      <view class="label muted">提醒方式：{{item.channelText}}</view>
+      <view class="label" wx:if="{{item.records.length}}">最新反馈：{{item.records[0].content}}</view>
+    </view>
+    <view class="button-row">
+      <button wx:if="{{item.status!=='done'}}" class="mini-btn" data-id="{{item.id}}" data-channel="in_app" bindtap="remindPatient">小程序提醒</button>
+      <button wx:if="{{item.status!=='done' && wechatSubscribeEnabled}}" class="mini-btn secondary" data-id="{{item.id}}" data-channel="wechat" bindtap="remindPatient">微信提醒</button>
+      <button wx:if="{{item.status!=='done' && smsEnabled}}" class="mini-btn secondary" data-id="{{item.id}}" data-channel="sms" bindtap="remindPatient">短信提醒</button>
+      <button wx:if="{{item.status!=='done'}}" class="mini-btn secondary" data-id="{{item.id}}" bindtap="markDone">标记完成</button>
+      <button wx:if="{{isAdmin}}" class="mini-danger-btn" data-id="{{item.id}}" bindtap="deleteTask">删除</button>
+    </view>
+  </view>
+
+  <view wx:if="{{!loading && tasks.length===0}}" class="empty-state">暂无匹配任务</view>
+</view>

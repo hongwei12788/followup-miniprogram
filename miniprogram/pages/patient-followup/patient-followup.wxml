@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="page-hero">
+    <view class="eyebrow">随访反馈</view>
+    <view class="title">随访任务</view>
+    <view class="subtitle">填写恢复情况后，医护端会同步看到记录。</view>
+  </view>
+
+  <view wx:for="{{tasks}}" wx:key="id" class="list-card">
+    <view class="meta-row">
+      <view class="item-title">{{item.title}}</view>
+      <view class="status-pill {{item.status}}">
+        <text wx:if="{{item.status==='pending'}}">待处理</text>
+        <text wx:elif="{{item.status==='done'}}">已完成</text>
+        <text wx:elif="{{item.status==='overdue'}}">已逾期</text>
+        <text wx:else>{{item.status}}</text>
+      </view>
+    </view>
+    <view class="meta-stack">
+      <view class="label">提醒日期：{{item.dueDateText}}</view>
+      <view class="label">关联手术：{{item.surgeryName}}</view>
+      <view class="notice-box" wx:if="{{item.instruction}}">{{item.instruction}}</view>
+      <view class="label" wx:if="{{item.location}}">地点：{{item.location}}</view>
+      <view class="label muted">提醒方式：{{item.channelText}}</view>
+    </view>
+    <textarea
+      wx:if="{{item.status==='pending' || item.status==='overdue'}}"
+      class="form-textarea"
+      placeholder="可填写体温、尿色、疼痛程度、排尿情况或其他不适"
+      data-id="{{item.id}}"
+      bindinput="updateFeedback"
+    />
+    <button wx:if="{{item.status==='pending' || item.status==='overdue'}}" class="mini-btn" data-id="{{item.id}}" bindtap="fillRecord">提交反馈</button>
+  </view>
+
+  <view wx:if="{{tasks.length===0}}" class="empty-state">暂无随访任务</view>
+</view>

@@ -1,0 +1,43 @@
+<view class="container">
+  <view class="page-hero">
+    <view class="eyebrow">病程信息</view>
+    <view class="title">我的手术</view>
+    <view class="subtitle">查看已登记的手术记录、拔管安排和医生上传的检查结果。</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty-state">正在加载手术信息...</view>
+
+  <view wx:for="{{surgeries}}" wx:key="id" class="list-card">
+    <view class="item-title">{{item.surgeryName}}</view>
+    <view class="meta-stack">
+      <view class="label">科室：{{item.departmentName}}</view>
+      <view class="label">手术日期：{{item.surgeryTimeText}}</view>
+      <view class="label" wx:if="{{item.catheterRemovalTimeText}}">预计拔管：{{item.catheterRemovalTimeText}}</view>
+      <view class="label" wx:if="{{item.catheterRemovalLocation}}">拔管地点：{{item.catheterRemovalLocation}}</view>
+    </view>
+  </view>
+  <view wx:if="{{!loading && surgeries.length===0}}" class="empty-state">暂无手术记录</view>
+
+  <view class="section-title">检查结果</view>
+  <view wx:for="{{results}}" wx:for-item="result" wx:key="id" class="list-card">
+    <view class="item-title">{{result.title}}</view>
+    <view class="meta-stack">
+      <view class="label" wx:if="{{result.description}}">{{result.description}}</view>
+      <view class="label">上传日期：{{result.createdAtText}}</view>
+    </view>
+    <view class="image-grid" wx:if="{{result.images.length}}">
+      <image
+        wx:for="{{result.images}}"
+        wx:for-item="image"
+        wx:key="*this"
+        src="{{image}}"
+        mode="aspectFill"
+        class="result-thumb"
+        data-current="{{image}}"
+        data-urls="{{result.images}}"
+        bindtap="previewResultImage"
+      />
+    </view>
+  </view>
+  <view wx:if="{{!loading && results.length===0}}" class="empty-state">暂无检查结果</view>
+</view>

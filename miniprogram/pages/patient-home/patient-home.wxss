@@ -1,0 +1,38 @@
+.subscribe-card {
+  gap: 16rpx;
+}
+
+.subscribe-head {
+  margin-top: 0;
+  margin-bottom: 14rpx;
+}
+
+.subscribe-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 108rpx;
+  height: 46rpx;
+  padding: 0 18rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.subscribe-pill.active {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.subscribe-pill.warn {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.subscribe-title {
+  margin-bottom: 10rpx;
+}
+
+.subscribe-detail {
+  margin-bottom: 20rpx;
+}

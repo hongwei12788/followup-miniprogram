@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="page-hero">
+    <view class="eyebrow">医护工作台</view>
+    <view class="title">今日随访概览</view>
+    <view class="subtitle">集中查看待办、逾期和患者总量，快速进入患者与随访任务。</view>
+  </view>
+
+  <view class="stat-grid">
+    <view class="stat-card">
+      <view class="stat-value">{{stats.todayPending || 0}}</view>
+      <view class="stat-label">今日待随访</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-value">{{stats.todayDone || 0}}</view>
+      <view class="stat-label">今日已完成</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-value">{{stats.overdue || 0}}</view>
+      <view class="stat-label">逾期未完成</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-value">{{stats.myPatients || 0}}</view>
+      <view class="stat-label">患者总量</view>
+    </view>
+  </view>
+
+  <view class="action-row">
+    <button class="ghost-btn" bindtap="goPatients">患者管理</button>
+    <button class="primary-btn" bindtap="goTasks">随访任务</button>
+  </view>
+</view>

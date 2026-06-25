@@ -1,0 +1,105 @@
+<view class="container" wx:if="{{patient}}">
+  <view class="page-hero">
+    <view class="eyebrow">患者详情</view>
+    <view class="title">{{patient.name}}</view>
+    <view class="subtitle">查看基础资料、手术记录、检查结果和随访任务。</view>
+  </view>
+
+  <view class="profile-card">
+    <view class="card-title">基础资料</view>
+    <view class="meta-stack">
+      <view class="label">性别：{{patient.gender || '未填写'}}</view>
+      <view class="label">手机号：{{patient.phone || '未填写'}}</view>
+      <view class="label">住院号：{{patient.hospitalNo || '未填写'}}</view>
+      <view class="label">身份证号后四位：{{patient.idCardSuffix || '未填写'}}</view>
+    </view>
+    <button wx:if="{{isAdmin}}" class="danger-btn" bindtap="deletePatient">删除患者资料</button>
+  </view>
+
+  <view class="form-card">
+    <view class="card-title">提醒患者</view>
+    <view class="field">
+      <view class="field-label">提醒方式</view>
+      <picker mode="selector" range="{{reminderChannelOptions}}" range-key="label" value="{{reminderChannelIndex}}" bindchange="onReminderChannelChange">
+        <view class="picker-input">{{reminderChannelOptions[reminderChannelIndex].label}}</view>
+      </picker>
+      <view wx:if="{{!smsEnabled}}" class="label muted">短信提醒开通后会在这里显示，当前可先记录小程序提醒。</view>
+    </view>
+    <textarea class="form-textarea" value="{{reminderText}}" bindinput="onReminderInput" placeholder="请输入要发送给患者的随访提醒内容" />
+    <button class="primary-btn" bindtap="sendReminder">{{reminderChannel === 'sms' ? '发送短信提醒' : (reminderChannel === 'wechat' ? '发送微信提醒' : '记录提醒')}}</button>
+  </view>
+
+  <view class="section-title">手术记录</view>
+  <view wx:for="{{patient.surgeries}}" wx:key="id" class="list-card">
+    <view class="item-title">{{item.surgeryName}}</view>
+    <view class="meta-stack">
+      <view class="label">手术日期：{{item.surgeryTimeText}}</view>
+      <view class="label" wx:if="{{item.catheterRemovalTimeText}}">预计拔管：{{item.catheterRemovalTimeText}}</view>
+      <view class="label" wx:if="{{item.catheterRemovalLocation}}">拔管地点：{{item.catheterRemovalLocation}}</view>
+    </view>
+  </view>
+
+  <view class="form-card">
+    <view class="card-title">上传检查结果</view>
+    <view class="field">
+      <view class="field-label">检查名称</view>
+      <input class="form-input" model:value="{{resultTitle}}" placeholder="例如 术后复查超声" />
+    </view>
+    <view class="field">
+      <view class="field-label">结果说明</view>
+      <textarea class="form-textarea" model:value="{{resultDescription}}" placeholder="填写检查结论或医生说明" />
+    </view>
+    <view class="image-grid">
+      <view wx:for="{{resultImages}}" wx:key="*this" class="upload-thumb">
+        <image src="{{item}}" mode="aspectFill" />
+        <button class="thumb-remove" data-index="{{index}}" bindtap="removeResultImage">×</button>
+      </view>
+      <button class="upload-tile" bindtap="chooseResultImages">添加图片</button>
+    </view>
+    <button class="primary-btn" bindtap="submitResult">保存检查结果</button>
+  </view>
+
+  <view class="section-title">检查结果</view>
+  <view wx:for="{{patient.examinationResults}}" wx:for-item="result" wx:key="id" class="list-card">
+    <view class="meta-row">
+      <view class="item-title">{{result.title}}</view>
+      <button wx:if="{{isAdmin}}" class="mini-danger-btn" data-id="{{result.id}}" bindtap="deleteResult">删除</button>
+    </view>
+    <view class="meta-stack">
+      <view class="label" wx:if="{{result.description}}">{{result.description}}</view>
+      <view class="label">上传日期：{{result.createdAtText}}</view>
+    </view>
+    <view class="image-grid" wx:if="{{result.images.length}}">
+      <image
+        wx:for="{{result.images}}"
+        wx:for-item="image"
+        wx:key="*this"
+        src="{{image}}"
+        mode="aspectFill"
+        class="result-thumb"
+        data-current="{{image}}"
+        data-urls="{{result.images}}"
+        bindtap="previewResultImage"
+      />
+    </view>
+  </view>
+  <view wx:if="{{patient.examinationResults.length===0}}" class="empty-state">暂无检查结果</view>
+
+  <view class="section-title">随访任务</view>
+  <view wx:for="{{patient.followupTasks}}" wx:key="id" class="list-card">
+    <view class="meta-row">
+      <view class="item-title">{{item.title}}</view>
+      <view class="status-pill {{item.status}}">
+        <text wx:if="{{item.status==='pending'}}">待处理</text>
+        <text wx:elif="{{item.status==='done'}}">已完成</text>
+        <text wx:elif="{{item.status==='overdue'}}">已逾期</text>
+        <text wx:else>{{item.status}}</text>
+      </view>
+    </view>
+    <view class="meta-stack">
+      <view class="label">截止日期：{{item.dueDateText}}</view>
+      <view class="label" wx:if="{{item.instruction}}">{{item.instruction}}</view>
+      <view class="label" wx:if="{{item.location}}">地点：{{item.location}}</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,27 @@
+<view class="container">
+  <view class="page-hero">
+    <view class="eyebrow">隐私说明</view>
+    <view class="title">隐私政策</view>
+    <view class="subtitle">请在授权收集个人信息前阅读本政策。</view>
+  </view>
+
+  <view class="form-card policy-card">
+    <view class="card-title">一、我们收集的信息</view>
+    <view class="policy-text">为提供术后随访服务，我们可能收集手机号、账号密码、注册身份、身份码、患者姓名、性别、出生日期、住院号、身份证号后四位、手术记录、随访任务、恢复反馈、检查结果图片和提醒记录。</view>
+
+    <view class="card-title policy-heading">二、使用目的</view>
+    <view class="policy-text">手机号用于账号登录、匹配医院录入的患者档案和发送短信随访提醒。随访、手术和检查相关信息用于患者查看、医护管理、提醒发送、反馈记录和管理员维护。</view>
+
+    <view class="card-title policy-heading">三、存储方式</view>
+    <view class="policy-text">上述信息会存储在本小程序后端服务和微信云托管环境中。检查结果图片会通过微信云开发能力上传和访问。我们会根据医疗随访管理需要保存相关记录。</view>
+
+    <view class="card-title policy-heading">四、共享范围</view>
+    <view class="policy-text">患者信息仅在患者本人、经医院授权的医生护士和管理员范围内展示。发送短信提醒时，会将手机号和提醒内容提交给短信服务提供方完成发送。</view>
+
+    <view class="card-title policy-heading">五、用户权利</view>
+    <view class="policy-text">用户可以退出登录，或联系医院管理人员更正、删除账号和随访相关资料。删除资料后，相关患者档案、任务、提醒和检查结果将按管理员操作同步处理。</view>
+
+    <view class="card-title policy-heading">六、未成年人保护</view>
+    <view class="policy-text">如患者为未成年人，应由监护人或医院授权人员协助使用本服务，并在充分了解本政策后提交相关信息。</view>
+  </view>
+</view>
